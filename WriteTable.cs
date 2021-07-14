@@ -13,7 +13,7 @@ namespace SeungWon.Function
 {
     public static class WriteTable
     {
-        [FunctionName("GetJSONData")]
+        [FunctionName("WriteTable")]
         public static void Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]
         HttpRequest req, ILogger log, ExecutionContext context)
         {
