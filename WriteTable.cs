@@ -14,7 +14,7 @@ namespace SeungWon.Function
     public static class WriteTable
     {
         [FunctionName("GetJSONData")]
-        public static String Run(
+        public static void Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
@@ -30,8 +30,6 @@ namespace SeungWon.Function
             CloudTable tableA = tbC.GetTableReference("tableA");
 
             writeToTable(tableA, contentA, PartitionKeyA, RowKeyA);
-            
-            return "";
         }
         static void writeToTable(CloudTable tableA, string contentA, string PartitionKeyA, string RowKeyA)
         {
