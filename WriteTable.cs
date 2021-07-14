@@ -23,7 +23,7 @@ namespace SeungWon.Function
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             string PartitionKeyA = data.PartitionKey;
             string RowKeyA = data.RowKey;
-            string contentA = data.content;
+            string contentA = data.Content;
 
             CloudStorageAccount stoA = CloudStorageAccount.Parse(connStrA);
             CloudTableClient tbC = stoA.CreateCloudTableClient();
@@ -44,7 +44,7 @@ namespace SeungWon.Function
         }
         private class MemoData: TableEntity
         {
-            public string content {get; set;}
+            public string content { get; set; }
         }
     }
 }
