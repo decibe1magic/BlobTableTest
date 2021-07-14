@@ -14,9 +14,8 @@ namespace SeungWon.Function
     public static class WriteTable
     {
         [FunctionName("GetJSONData")]
-        public static void Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
+        public static void Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]
+        HttpRequest req, ILogger log, ExecutionContext context)
         {
             string connStrA = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
             string requestBody = new StreamReader(req.Body).ReadToEnd();
@@ -31,18 +30,22 @@ namespace SeungWon.Function
 
             writeToTable(tableA, contentA, PartitionKeyA, RowKeyA);
         }
+
         static void writeToTable(CloudTable tableA, string contentA, string PartitionKeyA, string RowKeyA)
         {
             MemoData memoA = new MemoData();
             memoA.PartitionKey = PartitionKeyA;
             memoA.RowKey = RowKeyA;
             memoA.content = contentA;
+
             TableOperation operA = TableOperation.InsertOrReplace(memoA);
             tableA.Execute(operA);
         }
-        private class MemoData: TableEntity
+
+        private class MemoData : TableEntity
         {
             public string content { get; set; }
         }
+
     }
 }
